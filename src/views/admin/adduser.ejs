@@ -3,36 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Add User</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+
+        form {
+            width: 300px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        select {
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        select {
+            cursor: pointer;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
     <div>
         <form action="/admin/addUser" method="post">
             <div>
-                <input type="text" name="firstName" placeholder="First Name"/>
+                <input type="text" name="firstname" placeholder="First Name" required/>
             </div>
             <div>
-                <input type="text" name="lastName" placeholder="Last Name"/>
+                <input type="text" name="lastname" placeholder="Last Name" required/>
             </div>
             <div>
-                <input type="text" name="username" placeholder="User Name"/>
+                <input type="text" name="username" placeholder="User Name" required/>
             </div>
             <div>
-                <input type="email" name="email" placeholder="Email"/>
+                <input type="email" name="email" placeholder="Email" required/>
             </div>
             <div>
-                <input type="password" name="password" placeholder="Password"/>
+                <input type="password" name="password" placeholder="Password" required/>
             </div>
             <div>
-                <select name="role">
+                <select name="role" required>
                     <option value="author">Author</option>
                     <option value="admin">Admin</option>
                 </select>
             </div>
             <div>
-                <input type="submit"/>
+                <input type="submit" value="Add User"/>
             </div>
-            
         </form>
     </div>
 </body>

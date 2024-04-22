@@ -1,11 +1,11 @@
 const connectDB = require('../../DB/connect');
-const entry = require('../../models/schema')
+const entry = require('../../models/schemaPOST')
+const url = require('../../url')
 module.exports = (
     function(){
         const router = require('express').Router();
-        const fs = require('fs');
         router.get('/', async (req,res)=>{
-                await connectDB('mongodb+srv://parv:12341234@task-manager.kwcw1do.mongodb.net/test')
+                await connectDB(url)
                 console.log('db connected')
             const articles = await entry.find({})
             res.json(articles)

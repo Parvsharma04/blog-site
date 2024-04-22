@@ -1,33 +1,34 @@
-module.exports=(
-    function(){
-        const router = require('express').Router();
-        const fs = require('fs');
-        
-        router.get('/login',(req,res)=>{
-            res.render('./login/login.ejs');
-        })
+const router = require('express').Router();
+const User = require('../../models/schemaUser');
+const mongoose = require('mongoose');
+const url = require('../../url');
 
-        router.post('/login',(req,res)=>{
-            const users = JSON.parse(fs.readFileSync('./src/model/user.json','utf-8'));
+mongoose.connect(url)
+    .then(() => console.log('MongoDB connected'))
+    .catch(err => console.error('MongoDB connection error:', err));
 
-            const user = users.find(user=>req.body.username==user.username && req.body.pass==user.password);
-            
-            if(user){
-                req.session.user = user;
-                
-                if(user.role=='admin'){
-                    res.redirect('/admin/dashboard');
-                }
-                if(user.role=='author'){
-                    res.redirect('/author/dashboard')
-                }
+router.get('/login', (req, res) => {
+    res.render('./login/login.ejs');
+});
+
+router.post('/login', async (req, res) => {
+    try {
+        const user = await User.findOne({ username: req.body.username, password: req.body.pass });
+
+        if (user) {
+            req.session.user = user;
+            if (user.role === 'admin') {
+                return res.redirect('/admin/dashboard');
+            } else if (user.role === 'author') {
+                return res.redirect('/author/dashboard');
             }
-            else{
-                res.render('./login/login.ejs',{'message':'Invalid username or password'})
-            }
-
-        })
-
-        return router;
+        } else {
+            return res.render('./login/login.ejs', { message: 'Invalid username or password' });
+        }
+    } catch (error) {
+        console.error('Error occurred during login:', error);
+        return res.status(500).send('Internal Server Error');
     }
-)();
+});
+
+module.exports = router;

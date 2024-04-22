@@ -3,26 +3,114 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Login Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: burlywood; /* Vibrant background color */
+            color: #333; /* Default text color */
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 50px;
+            color: black; /* Dark text color for the heading */
+        }
+
+        #error {
+            color: red;
+            margin-bottom: 10px;
+        }
+
+        form {
+            width: 300px;
+            margin: 0 auto;
+            background-color: antiquewhite;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="submit"] {
+            width: calc(100% - 20px);
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        /* Dark mode styles */
+        body.dark-mode {
+            background-color: #222;
+            color: #fff;
+        }
+
+        body.dark-mode h1,
+        body.dark-mode #error {
+            color: #ff8080;
+        }
+
+        body.dark-mode form {
+            background-color: #333;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+        }
+
+        body.dark-mode input[type="text"],
+        body.dark-mode input[type="password"],
+        body.dark-mode input[type="submit"] {
+            border: 1px solid #666;
+            background-color: #444;
+            color: #fff;
+        }
+
+        .sub input {
+            width: -webkit-fill-available;
+        }
+    </style>
 </head>
 <body>
+    <h1>Login Page</h1> <!-- Added heading -->
     <div id="error">
         <% if(typeof message !=='undefined' && message!=null ){%>
             <p><%= message%></p>
         <%}%>
     </div>
     <div>
+        <button id="toggle-mode">Toggle Dark Mode</button>
         <form action="/login" method="post">
             <div>
-                <input type="text" name="username"/>
+                <input type="text" name="username" placeholder="Username"/>
             </div>
             <div>
-                <input type="password" name="pass"/>
+                <input type="password" name="pass" placeholder="Password"/>
             </div>
-            <div>
-                <input type="submit"/>
+            <div class="sub">
+                <input type="submit" value="Login"/>
             </div>
         </form>
     </div>
+    <script>
+        const toggleModeButton = document.getElementById('toggle-mode');
+        const body = document.body;
+
+        toggleModeButton.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+        });
+    </script>
 </body>
 </html>
