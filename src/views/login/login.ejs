@@ -84,11 +84,13 @@
     </style>
 </head>
 <body>
-    <h1>Login Page</h1> <!-- Added heading -->
+    <h1>Login Page</h1> 
     <div id="error">
-        <% if(typeof message !=='undefined' && message!=null ){%>
-            <p><%= message%></p>
-        <%}%>
+        <% if (typeof message !== 'undefined' && message !== null) { %>
+            <script>
+                alert('<%= message %>');
+            </script>
+        <% } %>
     </div>
     <div>
         <button id="toggle-mode">Toggle Dark Mode</button>

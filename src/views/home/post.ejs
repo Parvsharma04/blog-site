@@ -4,11 +4,70 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+
+        .post {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 80%;
+            height: 85vh;
+            margin: 20px auto;
+        }
+        .post-img{
+            display: flex;
+            justify-content: center;
+        }
+        .post-img img{
+            height: 400px;
+            width: 350px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+        }
+
+        .post h4 {
+            text-align: center;
+            font-size: 35px;
+            margin: 0 0 10px;
+            color: #333;
+        }
+
+        .post p {
+            padding-top: 7px;
+            font-size: 16px;
+            color: #666;
+            margin: 0 0 10px;
+        }
+
+        .post p span {
+            margin-right: 10px;
+            color: #999;
+        }
+
+        .post a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .post a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-    <div class="blog-card">
-        <img src="/images/<%= article.image %>" height="150px" width="120px"/>
-        <h4><%=article.articleId%></h4>
+    <div class="post">
+        <h4><%=article.title%></h4>
+        <div class="post-img">
+            <img src="/images/<%= article.image %>" height="150px" width="120px"/>
+
+        </div>
         <p><%=article.article%></p>
         <p><span><%=article.date%></span><span><%=article.author%></span></p>        
     </div>

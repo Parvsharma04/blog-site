@@ -3,7 +3,8 @@ module.exports = (
         const router = require('express').Router();
         const multer = require('multer');
         const path = require('path');
-        const fs = require('fs');
+        const entry = require('../../models/schemaPOST')
+        // const entry = require('../../models/schemaPOST')
 
         const storage = multer.diskStorage({
             destination: './public/images',
@@ -16,7 +17,7 @@ module.exports = (
             storage: storage,
             fileFilter: function (req, file, cb) {                
                 const extension = path.extname(file.originalname);              
-                if (extension.toLowerCase() == '.jpg' || extension.toLowerCase() == '.jpeg') {
+                if (extension.toLowerCase() == '.jpg' || extension.toLowerCase() == '.jpeg' || extension.toLowerCase() == '.png') {
                     cb(null, true);
                 }
                 else {
@@ -28,9 +29,9 @@ module.exports = (
             res.render('./articles/add.ejs');
         })
 
-        router.post('/add', upload.single('image'), (req, res) => {                   
-                const articles = JSON.parse(fs.readFileSync('./src/model/article.json', 'utf-8'));                
-                console.log(req.file);
+        router.post('/add', upload.single('image'), async(req, res) => {                   
+                const articles = await entry.find({})
+                console.log(articles);
                 const article = {
                     articleId: Date.now(),
                     title: req.body.title,
@@ -40,23 +41,24 @@ module.exports = (
                     author: req.session.user.firstName+" "+req.session.user.lastName,
                     authorId: req.session.user.id
                 }
-                articles.push(article);
-                fs.writeFileSync('./src/model/article.json',JSON.stringify(articles));
+                entry.create(article);
                 res.render('./articles/add', { message: 'Record added sucessfully' })
             
         });
 
-        router.get('/delete/:id',(req,res)=>{
-            const articles = JSON.parse(fs.readFileSync('./src/model/article.json', 'utf-8'));            
-            const articleIndex = articles.findIndex((article=>article.articleId==req.params.id));
-            if(articleIndex<0){
+        router.get('/delete/:id',async (req,res)=>{
+            try {
+                const article = await entry.findOne({articleId:req.params.id});
+            if(!article){
                 res.json(JSON.stringify({message:'error'}));
             }
             else{
-                articles.splice(articleIndex,1);
+                await entry.findOneAndDelete({articleId: req.params.id})
                 res.json(JSON.stringify({message:'ok'}));
-                fs.writeFileSync('./src/model/article.json',JSON.stringify(articles));
-            }            
+            }    
+            } catch (error) {
+                console.log(error)
+            }        
         })
         return router;
     }

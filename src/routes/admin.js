@@ -35,16 +35,18 @@ module.exports=(
         });
         
 
-        router.delete('/admin/deleteUser/:username', async (req, res) => { // corrected
+        router.get('/deleteUser/:username', async (req, res) => { // corrected
             try {
-                const user = await User.findOneAndDelete({ username: req.params.username }); // corrected
+                const user = await User.findOne({ username:req.params.username }); // corrected
                 if (!user) {
-                    return res.status(404).json({ message: 'User not found' });
+                    res.json(JSON.stringify({message:'error'}));
                 }
-                return res.json({ message: 'ok' });
+                else{
+                    await User.findOneAndDelete({username: req.params.username})
+                    res.json(JSON.stringify({message:'ok'}));
+                }
             } catch (error) {
                 console.error(error);
-                return res.status(500).json({ message: 'Something went wrong' });
             }
         });
         

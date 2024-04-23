@@ -75,7 +75,7 @@
     <h1>Admin Dashboard</h1>
     <ul>
       <li>Hi! <%=user.firstName%></li>
-      <li><a href="#">Home</a></li>
+      <li><a href="/">Home</a></li>
       <li><a href="/article/add">Add Post</a></li>
       <li><a href="/admin/addUser">Add User</a></li>
     </ul>
@@ -154,18 +154,13 @@
       }
 
       async function deleteUser(e, username) {
-        try {
-          const response = await fetch(`/admin/deleteUser/${username}`); 
-          const data = await response.json();
-          if (data.message == "ok") {
-            alert("User deleted successfully");
-            const parentNode = e.parentNode.parentNode;
-            parentNode.remove();
-          } else if (data.message == "error") {
-            alert("Something went wrong");
-          }
-        } catch (error) {
-          console.error(error);
+        const response = await fetch(`/admin/deleteUser/${username}`);
+        const data = JSON.parse(await response.json());
+        if (data.message == "ok") {
+          alert("Record deleted successfully");
+          const parentNode = e.parentNode.parentNode;
+          parentNode.remove();
+        } else if (message.response == "error") {
           alert("Something went wrong");
         }
       }

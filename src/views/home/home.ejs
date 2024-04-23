@@ -4,14 +4,79 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .blog-card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+            width: calc(50% - 20px);
+            box-sizing: border-box;
+        }
+        .card-img{
+            display: flex;
+            justify-content: center;
+        }
+        .card-img img{
+            height: max-content;
+            width: 100%;
+            border-radius: 6px;
+            margin-bottom: 10px;
+        }
+
+        .blog-card h4 {
+            font-size: 18px;
+            margin: 0;
+        }
+
+        .blog-card p {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .blog-card p span {
+            margin-right: 10px;
+        }
+
+        .blog-card a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        
+        .blog-card a:hover {
+            text-decoration: underline;
+        }
+        </style>
 </head>
 <body>
+    <div style="text-align: right; margin: 20px;">
+        <a href="/login" style="text-decoration: none; background-color: #007bff; color: #fff; padding: 10px 20px; border-radius: 5px;">Login</a>
+    </div>
     <div class="container">
-
         <% articles.forEach(article=>{%>
             <div class="blog-card">
-                <!-- <img src="/images/<%= article.image %>" height="150px" width="120px"/> -->
-                <h4><a href="/post/<%=article.articleId%>"><%=article.articleId%></a></h4>
+                <div class="card-img">
+                    <img src="/images/<%= article.image %>" height="150px" width="120px"/>
+                </div>
+                <h4><a href="/post/<%=article.articleId%>"><%=article.title%></a></h4>
                 <p><%=article.article.slice(0,32)%>...</p>
                 <p><span><%=article.date%></span><span><%=article.author%></span></p>
                 <a href="/post/<%=article.articleId%>">Read More</a>
@@ -20,6 +85,6 @@
         
     </div>
 
-
+    <!-- Add login button here -->
 </body>
 </html>

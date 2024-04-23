@@ -1,11 +1,5 @@
 const router = require('express').Router();
 const User = require('../../models/schemaUser');
-const mongoose = require('mongoose');
-const url = require('../../url');
-
-mongoose.connect(url)
-    .then(() => console.log('MongoDB connected'))
-    .catch(err => console.error('MongoDB connection error:', err));
 
 router.get('/login', (req, res) => {
     res.render('./login/login.ejs');

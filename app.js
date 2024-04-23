@@ -7,14 +7,17 @@ const adminRouter = require('./src/routes/admin');
 const articleRouter = require('./src/routes/articles');
 const homeRouter = require('./src/routes/home');
 const connectDB = require('./DB/connect')
-app.listen(8080);
+
+connectDB()
+
+app.listen(8080, ()=>{console.log(`http://localhost:8080`)});
 
 app.set('view engine','ejs');
 app.set('views','./src/views')
 
 app.use(session({
     resave:false,
-    saveUninitialized:true,
+    saveUninitialized:false,
     secret:'keyboard'
 }));
 
@@ -30,7 +33,7 @@ const userAuth = (req,res,next)=>{
         next()
     }
     else{
-        res.redirect('/login');
+        res.redirect('/');
     }
 }
 
