@@ -35,9 +35,9 @@ module.exports=(
         });
         
 
-        router.get('/deleteUser/:username', async (req, res) => { // corrected
+        router.get('/deleteUser/:username', async (req, res) => {
             try {
-                const user = await User.findOne({ username:req.params.username }); // corrected
+                const user = await User.findOne({ username:req.params.username });
                 if (!user) {
                     res.json(JSON.stringify({message:'error'}));
                 }
