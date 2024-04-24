@@ -4,8 +4,6 @@ module.exports = (
         const multer = require('multer');
         const path = require('path');
         const entry = require('../../models/schemaPOST')
-        // const entry = require('../../models/schemaPOST')
-
         const storage = multer.diskStorage({
             destination: './public/images',
             filename: function (req, file, cb) {                
@@ -30,8 +28,6 @@ module.exports = (
         })
 
         router.post('/add', upload.single('image'), async(req, res) => {                   
-                const articles = await entry.find({})
-                console.log(articles);
                 const article = {
                     articleId: Date.now(),
                     title: req.body.title,

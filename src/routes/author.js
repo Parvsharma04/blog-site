@@ -1,11 +1,10 @@
 module.exports=(
     function(){
         const router = require('express').Router();
-        const fs = require('fs');
+        const entry = require('../../models/schemaPOST')
    
-        router.get('/dashboard',(req,res)=>{
-            const allArticles=JSON.parse(fs.readFileSync('./src/model/article.json','utf-8'));
-            const articles = allArticles.filter(article=>article.authorId == req.session.user.id);
+        router.get('/dashboard', async (req,res)=>{
+            const articles = await entry.find({authorId: req.session.user.id});
             res.render('./author/dashboard.ejs',{user:req.session.user,articles})
         })
 
