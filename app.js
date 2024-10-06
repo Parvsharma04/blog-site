@@ -7,7 +7,7 @@ const adminRouter = require('./src/routes/admin');
 const articleRouter = require('./src/routes/articles');
 const homeRouter = require('./src/routes/home');
 const connectDB = require('./DB/connect')
-
+const signupRouter = require('./src/routes/signup')
 connectDB()
 
 app.listen(8080, ()=>{console.log(`http://localhost:8080`)});
@@ -26,9 +26,10 @@ app.use(express.json());
 app.use(express.static('./public'))
 
 app.use('/',loginRouter);
+app.use('/',signupRouter);
 
 const userAuth = (req,res,next)=>{
-    
+
     if(req.session && req.session.user){
         next()
     }
@@ -58,4 +59,3 @@ app.use('/',homeRouter);
 app.use('/admin',userAuth,adminAuth,adminRouter);
 app.use('/author',userAuth,authorAuth,authorRouter)
 app.use('/article',userAuth,articleRouter);
-

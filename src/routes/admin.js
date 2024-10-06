@@ -22,8 +22,6 @@ module.exports=(
                 res.send('User already exists');
             } else {
                 const userObj = {
-                    firstName:req.body.firstname,
-                    lastName:req.body.lastname,
                     username:req.body.username,
                     email:req.body.email,
                     password:req.body.password,
@@ -33,7 +31,7 @@ module.exports=(
                 res.send('User Added Successfully');
             }
         });
-        
+
 
         router.get('/deleteUser/:username', async (req, res) => {
             try {
@@ -49,7 +47,7 @@ module.exports=(
                 console.error(error);
             }
         });
-        
+
         return router;
     }
 )();

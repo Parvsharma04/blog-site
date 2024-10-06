@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: burlywood;
+            color: #333;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 50px;
+            color: black;
+        }
+
+        #error {
+            color: red;
+            margin-bottom: 10px;
+        }
+
+        form {
+            width: 300px;
+            margin: 0 auto;
+            background-color: antiquewhite;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="email"],
+        input[type="submit"] {
+            width: calc(100% - 20px);
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        body.dark-mode {
+            background-color: #222;
+            color: #fff;
+        }
+
+        body.dark-mode h1,
+        body.dark-mode #error {
+            color: #ff8080;
+        }
+
+        body.dark-mode form {
+            background-color: #333;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+        }
+
+        body.dark-mode input[type="text"],
+        body.dark-mode input[type="password"],
+        body.dark-mode input[type="email"],
+        body.dark-mode input[type="submit"] {
+            border: 1px solid #666;
+            background-color: #444;
+            color: #fff;
+        }
+
+        .sub input {
+            width: -webkit-fill-available;
+        }
+    </style>
+</head>
+<body>
+    <h1>Signup Page</h1>
+    <div id="error">
+        <% if (typeof message !== 'undefined' && message !== null) { %>
+            <script>
+                alert('<%= message %>');
+            </script>
+        <% } %>
+    </div>
+    <div>
+        <button id="toggle-mode">Toggle Dark Mode</button>
+        <form action="/signup" method="post">
+            <div>
+                <input type="text" name="username" placeholder="Username" required/>
+            </div>
+            <div>
+                <input type="email" name="email" placeholder="Email" required/>
+            </div>
+            <div>
+                <input type="password" name="password" placeholder="Password" required/>
+            </div>
+            <div class="sub">
+                <input type="submit" value="Signup"/>
+            </div>
+            <a href="/login">Login</a>
+        </form>
+    </div>
+    <script>
+        const toggleModeButton = document.getElementById('toggle-mode');
+        const body = document.body;
+
+        toggleModeButton.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+        });
+    </script>
+</body>
+</html>

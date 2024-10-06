@@ -7,17 +7,17 @@ router.get('/login', (req, res) => {
 
 router.post('/login', async (req, res) => {
     try {
-        const user = await User.findOne({ username: req.body.username, password: req.body.pass });
-
-        if (user) {
-            req.session.user = user;
-            if (user.role === 'admin') {
+        const user = await User.find({ username: req.body.username, password: req.body.pass });
+        console.log(user)
+        if (user.length) {
+            req.session.user = user[0];
+            if (user[0].role === 'admin') {
                 return res.redirect('/admin/dashboard');
-            } else if (user.role === 'author') {
+            } else if (user[0].role === 'author') {
                 return res.redirect('/author/dashboard');
             }
         } else {
-            return res.render('./login/login.ejs', { message: 'Invalid username or password' });
+            return res.redirect('/signup');
         }
     } catch (error) {
         console.error('Error occurred during login:', error);
